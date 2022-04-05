@@ -19,16 +19,32 @@ public class MeshGenerator : MonoBehaviour
     public Color forestColor;
     public Color grassColor;
     public Color defaultColor;
+    public bool isRoad;
     Mesh mesh;
     public Material mat;
+    public Material testMat;
+    Material currentMat;
+
 
     void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         GetComponent<MeshRenderer>().material = mat;
+        currentMat = GetComponent<MeshRenderer>().material;
         CreateShape();
         UpdateMesh();
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            currentMat.SetFloat("Float", 1);
+            Debug.Log(currentMat.GetFloat("Float"));
+        }
+        
     }
 
     void CreateShape()
@@ -109,16 +125,20 @@ public class MeshGenerator : MonoBehaviour
 
                 if (grassVerts.Contains(vertPos))
                 {
+                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 0);
                     colors[i] = grassColor;
                 }
 
                 else if (treeVerts.Contains(vertPos))
                 {
+                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 0);
                     colors[i] = forestColor;
                 }
 
                 else
                 {
+                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 1);
+                    Debug.Log(currentMat.GetInt("isRoad"));
                     colors[i] = defaultColor;
                 }
 
