@@ -6,6 +6,7 @@ public class Building : MonoBehaviour
 {
     public MeshFilter meshFilter;
     public List<Vector3> verts;
+    MeshCollider meshCol;
     public List<int> tris;
     public Vector2[] uvs;
 
@@ -13,6 +14,7 @@ public class Building : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        meshCol = GetComponent<MeshCollider>();
         Generate();
     }
 
@@ -26,6 +28,7 @@ public class Building : MonoBehaviour
     public void Generate()
     {
         Mesh mesh = new Mesh();
+        meshCol.sharedMesh = mesh;
         mesh.vertices = verts.ToArray();
         mesh.triangles = tris.ToArray();
         mesh.uv = uvs;
