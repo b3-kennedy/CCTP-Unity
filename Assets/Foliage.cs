@@ -6,10 +6,12 @@ using System.IO;
 public class Foliage : MonoBehaviour
 {
     public GameObject tree;
+    public GameObject grass;
 
     private void Start()
     {
         PlaceTrees();
+        //PlaceGrass();
     }
 
     void PlaceTrees()
@@ -17,22 +19,20 @@ public class Foliage : MonoBehaviour
         string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/trees.txt");
         foreach (var line in lines)
         {
-            Debug.Log(line);
             string[] split = line.Split(',');
-            Vector3 treePos = new Vector3(int.Parse(split[0]), 0, int.Parse(split[1]));
+            Vector3 treePos = new Vector3(int.Parse(split[0])*2, 0, int.Parse(split[1])*2);
             Instantiate(tree, treePos, Quaternion.identity);
         }
     }
 
     void PlaceGrass()
     {
-        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/grass.txt");
+        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/grassarea.txt");
         foreach (var line in lines)
         {
-            Debug.Log(line);
             string[] split = line.Split(',');
-            Vector3 treePos = new Vector3(int.Parse(split[0]), 0, int.Parse(split[1]));
-            Instantiate(tree, treePos, Quaternion.identity);
+            Vector3 grassPos = new Vector3(int.Parse(split[0])*2, 0, int.Parse(split[1])*2);
+            Instantiate(grass, grassPos, Quaternion.identity);
         }
     }
 

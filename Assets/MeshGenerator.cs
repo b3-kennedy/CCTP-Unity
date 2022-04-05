@@ -10,8 +10,15 @@ public class MeshGenerator : MonoBehaviour
 
     Vector3[] vertices;
     int[] triangles;
+    Vector2[] uvs;
+    Color[] colors;
+    List<Vector2> treeVerts;
+    List<Vector2> grassVerts;
     public int xSize;
     public int zSize;
+    public Color forestColor;
+    public Color grassColor;
+    public Color defaultColor;
     Mesh mesh;
     public Material mat;
 
@@ -66,7 +73,66 @@ public class MeshGenerator : MonoBehaviour
             vert++;
         }
 
+        string path = "Assets/Resources/Trees/" + "treearea" + ".txt";
+        string[] lines = System.IO.File.ReadAllLines(path);
+        treeVerts = new List<Vector2>();
 
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] split = lines[i].Split(',');
+            treeVerts.Add(new Vector2(int.Parse(split[0]), int.Parse(split[1])));
+        }
+
+
+        string grassPath = "Assets/Resources/Trees/" + "grassarea" + ".txt";
+        string[] grassLines = System.IO.File.ReadAllLines(grassPath);
+        grassVerts = new List<Vector2>();
+
+        for (int i = 0; i < grassLines.Length; i++)
+        {
+            string[] split = grassLines[i].Split(',');
+            grassVerts.Add(new Vector2(int.Parse(split[0]), int.Parse(split[1])));
+        }
+
+
+        colors = new Color[vertices.Length];
+        uvs = new Vector2[vertices.Length];
+
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+            for (int x = 0; x <= xSize; x++)
+            {
+                uvs[i] = new Vector2(x, z);
+
+                Vector2 vertPos = new Vector2(x, z);
+
+
+                if (grassVerts.Contains(vertPos))
+                {
+                    colors[i] = grassColor;
+                }
+
+                else if (treeVerts.Contains(vertPos))
+                {
+                    colors[i] = forestColor;
+                }
+
+                else
+                {
+                    colors[i] = defaultColor;
+                }
+
+
+
+
+                //if(vertPos.x == 0 && vertPos.y == 0)
+                //{
+                //    colors[i] = new Color(255, 0, 0);
+                //}
+
+                i++;
+            }
+        }
 
     }
 
@@ -75,7 +141,8 @@ public class MeshGenerator : MonoBehaviour
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-
+        mesh.uv = uvs;
+        mesh.colors = colors;
         mesh.RecalculateNormals();
 
     }
