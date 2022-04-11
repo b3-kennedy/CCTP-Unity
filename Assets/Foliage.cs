@@ -32,7 +32,7 @@ public class Foliage : MonoBehaviour
         {
             string[] split = line.Split(',');
             Vector3 grassPos = new Vector3(int.Parse(split[0])*2, 0, int.Parse(split[1])*2);
-            Instantiate(grass, grassPos, Quaternion.identity);
+            //Instantiate(grass, grassPos, Quaternion.identity);
         }
     }
 

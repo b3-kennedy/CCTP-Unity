@@ -14,10 +14,12 @@ public class MeshGenerator : MonoBehaviour
     Color[] colors;
     List<Vector2> treeVerts;
     List<Vector2> grassVerts;
+    List<Vector2> roadVerts;
     public int xSize;
     public int zSize;
     public Color forestColor;
     public Color grassColor;
+    public Color roadColor;
     public Color defaultColor;
     public bool isRoad;
     Mesh mesh;
@@ -110,6 +112,16 @@ public class MeshGenerator : MonoBehaviour
             grassVerts.Add(new Vector2(int.Parse(split[0]), int.Parse(split[1])));
         }
 
+        string roadPath = "Assets/Resources/Trees/" + "roadarea" + ".txt";
+        string[] roadLines = System.IO.File.ReadAllLines(roadPath);
+        roadVerts = new List<Vector2>();
+
+        for (int i = 0; i < roadLines.Length; i++)
+        {
+            string[] split = roadLines[i].Split(',');
+            roadVerts.Add(new Vector2(int.Parse(split[0]), int.Parse(split[1])));
+        }
+
 
         colors = new Color[vertices.Length];
         uvs = new Vector2[vertices.Length];
@@ -123,32 +135,32 @@ public class MeshGenerator : MonoBehaviour
                 Vector2 vertPos = new Vector2(x, z);
 
 
-                if (grassVerts.Contains(vertPos))
+                if (roadVerts.Contains(vertPos))
                 {
-                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 0);
-                    colors[i] = grassColor;
+                    colors[i] = roadColor;
+                    //treeVerts.Remove(vertPos);
+                    //grassVerts.Remove(vertPos);
                 }
-
                 else if (treeVerts.Contains(vertPos))
                 {
-                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 0);
                     colors[i] = forestColor;
                 }
-
+                else if (grassVerts.Contains(vertPos))
+                {
+                    colors[i] = grassColor;
+                }
                 else
                 {
-                    currentMat.SetInt("Boolean_b78a691b4160461ab7a23dcb12ddb6a3", 1);
-                    Debug.Log(currentMat.GetInt("isRoad"));
                     colors[i] = defaultColor;
                 }
 
 
 
 
-                //if(vertPos.x == 0 && vertPos.y == 0)
-                //{
-                //    colors[i] = new Color(255, 0, 0);
-                //}
+                ////if(vertPos.x == 0 && vertPos.y == 0)
+                ////{
+                ////    colors[i] = new Color(255, 0, 0);
+                ////}
 
                 i++;
             }

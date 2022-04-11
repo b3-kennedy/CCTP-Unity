@@ -10,17 +10,34 @@ public class BuildingData
     public Vector3 position;
     public List<Vector3> verts = new List<Vector3>();
     public List<int> tris = new List<int>();
+    public float width;
+    public float depth;
+    public float area;
+    public float rotation;
 }
 
 public class BuildingGenerator : MonoBehaviour
 {
     public List<BuildingData> buildings;
     public GameObject building;
+    
     public MeshFilter meshFilter;
     public Vector2Int size;
     public List<Vector3> verts;
     public List<int> tris;
     public Vector2[] uvs;
+    public bool useBoundingBoxGeometry;
+    public enum BuildingType {VERTS, BOUNDING, AREA};
+
+    public BuildingType type;
+
+    public GameObject brickHouse;
+    public GameObject brickHouseMedium;
+    public GameObject largeApartment;
+    public GameObject hut;
+    public bool useImageDimensions;
+
+    string directory;
 
 
     private void Start()
@@ -33,8 +50,15 @@ public class BuildingGenerator : MonoBehaviour
 
         //Generate();
 
+
+
         GetBuildingData();
-        CreateBuilding();
+        
+
+        if (type != BuildingType.AREA)
+        {
+            CreateBuilding();
+        }
     }
 
 
@@ -44,20 +68,140 @@ public class BuildingGenerator : MonoBehaviour
         {
             GameObject newBuilding = Instantiate(building);
             Building buildingScript = newBuilding.GetComponent<Building>();
-            newBuilding.transform.position = b.position;
+            
             buildingScript.verts = b.verts;
             buildingScript.tris = b.tris;
+            buildingScript.width = b.width;
+            buildingScript.depth = b.depth;
+            buildingScript.area = b.area;
+            if (type == BuildingType.BOUNDING)
+            {
+                newBuilding.transform.position = new Vector3(b.position.x - (b.width/2), 0, b.position.z - (b.depth/2));
+            }
+            else
+            {
+                newBuilding.transform.position = b.position;
+            }
         }
 
         
+    }
+
+
+    void BuildingArea()
+    {
+        int index = 0;
+
+        string[] areaFiles = Directory.GetFiles("Assets/Resources/Buildings/boundingarea", "*.txt");
+
+        foreach (var file in areaFiles)
+        {
+            string[] lines = System.IO.File.ReadAllLines(file);
+
+            string fileName = Path.GetFileName(file);
+            string[] nameSplit1 = fileName.Split('.');
+            string[] nameSplit2 = nameSplit1[0].Split('(');
+            string[] nameSplit3 = nameSplit2[1].Split(')');
+            string[] nameSplit4 = nameSplit3[0].Split(',');
+
+            buildings[index].rotation = float.Parse(nameSplit4[2]);
+
+
+            Vector3 pos = new Vector3(float.Parse(nameSplit4[0]), 0, float.Parse(nameSplit4[1]));
+
+            buildings[index].position = pos;
+
+            buildings[index].width = float.Parse(lines[0]);
+            buildings[index].depth = float.Parse(lines[1]);
+
+            buildings[index].area = buildings[index].width * buildings[index].depth;
+
+            index++;
+        }
+    }
+
+    void AreaBuildings()
+    {
+        string[] areaFiles = Directory.GetFiles("Assets/Resources/Buildings/boundingarea", "*.txt");
+
+        for (int i = 0; i < areaFiles.Length; i++)
+        {
+            BuildingData building = new BuildingData();
+            buildings.Add(building);
+        }
+
+        BuildingArea();
+
+        foreach (var building in buildings)
+        {
+            if(building.area <= 1000 && building.area >= 500)
+            {
+                GameObject house = Instantiate(brickHouse, building.position, Quaternion.identity);
+
+                if (useImageDimensions)
+                {
+                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
+                }
+                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+
+            }
+            else if(building.area < 500)
+            {
+                GameObject house = Instantiate(brickHouseMedium, building.position, Quaternion.identity);
+                if (useImageDimensions)
+                {
+                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
+                }
+                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+
+            }
+            else if(building.area > 1000 && building.area <= 3000)
+            {
+                GameObject house = Instantiate(largeApartment, building.position, Quaternion.identity);
+                if (useImageDimensions)
+                {
+                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
+                }
+                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+            }
+            else if(building.area > 3000)
+            {
+                GameObject house = Instantiate(largeApartment, building.position, Quaternion.identity);
+                if (useImageDimensions)
+                {
+                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
+                }
+                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+            }
+        }
+
     }
 
     void GetBuildingData()
     {
         int vertIndex = 0;
         int triIndex = 0;
-        string[] vertFiles = Directory.GetFiles("Assets/Resources/Buildings/verts","*.txt");
-        string[] triFiles = Directory.GetFiles("Assets/Resources/Buildings/tris", "*.txt");
+
+        if (type == BuildingType.BOUNDING)
+        {
+            directory = "bounding";
+        }
+        else if(type == BuildingType.VERTS)
+        {
+            directory = "";
+        }
+        else if(type == BuildingType.AREA)
+        {
+            AreaBuildings();
+            return;
+        }
+
+
+        
+        string[] vertFiles = Directory.GetFiles("Assets/Resources/Buildings/"+directory+"verts","*.txt");
+        string[] triFiles = Directory.GetFiles("Assets/Resources/Buildings/"+directory+"tris", "*.txt");
+
+        
 
         for (int i = 0; i < vertFiles.Length; i++)
         {
@@ -104,6 +248,8 @@ public class BuildingGenerator : MonoBehaviour
             }
             triIndex++;
         }
+
+        BuildingArea();
 
     }
 

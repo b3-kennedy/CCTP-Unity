@@ -9,6 +9,10 @@ public class Building : MonoBehaviour
     MeshCollider meshCol;
     public List<int> tris;
     public Vector2[] uvs;
+    public float width;
+    public float depth;
+    public float area;
+    public float rotation;
 
 
     // Start is called before the first frame update
