@@ -10,6 +10,7 @@ public class BuildingData
     public Vector3 position;
     public List<Vector3> verts = new List<Vector3>();
     public List<int> tris = new List<int>();
+    public List<Vector2> uvs = new List<Vector2>();
     public float width;
     public float depth;
     public float area;
@@ -27,6 +28,8 @@ public class BuildingGenerator : MonoBehaviour
     public List<int> tris;
     public Vector2[] uvs;
     public bool useBoundingBoxGeometry;
+    public int buildingCount;
+
     public enum BuildingType {VERTS, BOUNDING, AREA};
 
     public BuildingType type;
@@ -34,6 +37,7 @@ public class BuildingGenerator : MonoBehaviour
     public GameObject brickHouse;
     public GameObject brickHouseMedium;
     public GameObject largeApartment;
+    public GameObject storageBuilding;
     public GameObject hut;
     public bool useImageDimensions;
 
@@ -52,12 +56,23 @@ public class BuildingGenerator : MonoBehaviour
 
 
 
+
+    }
+
+    public void StartBuildingCreation()
+    {
+        Debug.Log("building data");
         GetBuildingData();
-        
+
 
         if (type != BuildingType.AREA)
         {
             CreateBuilding();
+        }
+
+        if(buildingCount >= buildings.Count)
+        {
+            GetComponent<Foliage>().Place();
         }
     }
 
@@ -74,6 +89,7 @@ public class BuildingGenerator : MonoBehaviour
             buildingScript.width = b.width;
             buildingScript.depth = b.depth;
             buildingScript.area = b.area;
+            buildingScript.uvs = b.uvs;
             if (type == BuildingType.BOUNDING)
             {
                 newBuilding.transform.position = new Vector3(b.position.x - (b.width/2), 0, b.position.z - (b.depth/2));
@@ -84,7 +100,6 @@ public class BuildingGenerator : MonoBehaviour
             }
         }
 
-        
     }
 
 
@@ -134,7 +149,17 @@ public class BuildingGenerator : MonoBehaviour
 
         foreach (var building in buildings)
         {
-            if(building.area <= 1000 && building.area >= 500)
+            if(building.area < 200)
+            {
+                GameObject house = Instantiate(hut, building.position, Quaternion.identity);
+
+                if (useImageDimensions)
+                {
+                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
+                }
+                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+            }
+            else if(building.area <= 1000 && building.area >= 500)
             {
                 GameObject house = Instantiate(brickHouse, building.position, Quaternion.identity);
 
@@ -145,7 +170,7 @@ public class BuildingGenerator : MonoBehaviour
                 house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
 
             }
-            else if(building.area < 500)
+            else if(building.area < 500 && building.area > 200)
             {
                 GameObject house = Instantiate(brickHouseMedium, building.position, Quaternion.identity);
                 if (useImageDimensions)
@@ -155,7 +180,7 @@ public class BuildingGenerator : MonoBehaviour
                 house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
 
             }
-            else if(building.area > 1000 && building.area <= 3000)
+            else if(building.area > 1000 && building.area <= 5000)
             {
                 GameObject house = Instantiate(largeApartment, building.position, Quaternion.identity);
                 if (useImageDimensions)
@@ -164,14 +189,15 @@ public class BuildingGenerator : MonoBehaviour
                 }
                 house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
             }
-            else if(building.area > 3000)
+            else if(building.area > 5000)
             {
-                GameObject house = Instantiate(largeApartment, building.position, Quaternion.identity);
+                GameObject house = Instantiate(storageBuilding, building.position, Quaternion.identity);
                 if (useImageDimensions)
                 {
                     house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
                 }
                 house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
+                house.transform.localScale = new Vector3(6, 6, 6);
             }
         }
 
@@ -185,6 +211,7 @@ public class BuildingGenerator : MonoBehaviour
         if (type == BuildingType.BOUNDING)
         {
             directory = "bounding";
+            
         }
         else if(type == BuildingType.VERTS)
         {
@@ -231,6 +258,7 @@ public class BuildingGenerator : MonoBehaviour
                 string[] split = line.Split(',');
                 Vector3 vert = new Vector3(float.Parse(split[0]), float.Parse(split[1]), float.Parse(split[2]));
                 buildings[vertIndex].verts.Add(vert);
+                buildings[vertIndex].uvs.Add(new Vector2(vert.x, vert.z));
             }
             vertIndex++;
         }
@@ -249,7 +277,11 @@ public class BuildingGenerator : MonoBehaviour
             triIndex++;
         }
 
-        BuildingArea();
+        if(type != BuildingType.VERTS)
+        {
+            BuildingArea();
+        }
+        
 
     }
 

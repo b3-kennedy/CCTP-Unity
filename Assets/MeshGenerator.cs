@@ -22,25 +22,64 @@ public class MeshGenerator : MonoBehaviour
     public Color roadColor;
     public Color defaultColor;
     public bool isRoad;
+    MeshCollider meshCol;
     Mesh mesh;
     public Material mat;
     public Material testMat;
     Material currentMat;
+    public static GameObject world;
+    bool treesPlaced = false;
+    
+
+
+
+    public static float GetTerrainHeight(Vector3 pos)
+    {
+        RaycastHit hit;
+        float y = 0;
+        if (Physics.Raycast(pos, Vector3.down * 100, out hit))
+        {
+            if (hit.collider)
+            {
+                y = hit.point.y;
+            }
+        }
+        return y;
+    }
 
 
     void Start()
     {
+        world = gameObject;
+        Debug.Log("terrain");
         mesh = new Mesh();
+        meshCol = GetComponent<MeshCollider>();
         GetComponent<MeshFilter>().mesh = mesh;
         GetComponent<MeshRenderer>().material = mat;
         currentMat = GetComponent<MeshRenderer>().material;
         CreateShape();
         UpdateMesh();
+
+        GetComponent<BuildingGenerator>().StartBuildingCreation();
+
+
+
     }
 
 
     private void Update()
     {
+        if (!treesPlaced)
+        {
+            if (GetComponent<BuildingGenerator>().buildingCount >= GetComponent<BuildingGenerator>().buildings.Count)
+            {
+                GetComponent<Foliage>().Place();
+                treesPlaced = true;
+            }
+        }
+
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             currentMat.SetFloat("Float", 1);
@@ -60,7 +99,11 @@ public class MeshGenerator : MonoBehaviour
             {
                 //print("normal: " + y + " | " + "abnormal: " + testy);
 
+                
+
+                
                 vertices[i] = new Vector3(x, 0, z);
+                
 
 
                 i++;
@@ -172,7 +215,9 @@ public class MeshGenerator : MonoBehaviour
     {
         mesh.Clear();
         mesh.vertices = vertices;
+        Debug.Log(mesh.vertices.Length);
         mesh.triangles = triangles;
+        meshCol.sharedMesh = mesh;
         mesh.uv = uvs;
         mesh.colors = colors;
         mesh.RecalculateNormals();
