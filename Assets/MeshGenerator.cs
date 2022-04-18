@@ -93,16 +93,22 @@ public class MeshGenerator : MonoBehaviour
 
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
 
+        string elevationPath = "Assets/Resources/" + "elevation" + ".txt";
+        string[] elevationLines = System.IO.File.ReadAllLines(elevationPath);
+        
+
         for (int i = 0, z = 0; z <= zSize; z++)
         {
             for (int x = 0; x <= xSize; x++)
             {
+                float y = float.Parse(elevationLines[i]);
+                Debug.Log(i);
                 //print("normal: " + y + " | " + "abnormal: " + testy);
 
                 
 
                 
-                vertices[i] = new Vector3(x, 0, z);
+                vertices[i] = new Vector3(x, y, z);
                 
 
 

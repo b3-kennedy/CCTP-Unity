@@ -18,6 +18,7 @@ public class Building : MonoBehaviour
     public List<Vector3> bottomVerts;
     float range = 1;
     float terrainHeight;
+    [HideInInspector] public bool rotate;
 
 
     // Start is called before the first frame update
@@ -30,11 +31,15 @@ public class Building : MonoBehaviour
             Generate();
             Vector3 centre = new Vector3(width / 2, 0, depth / 2);
             RaycastHit centreHit;
-            if (Physics.Raycast(transform.position + centre, Vector3.down * range, out centreHit))
+            if (rotate)
             {
-                Quaternion rot = Quaternion.FromToRotation(Vector3.up, centreHit.normal);
-                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, rot.z, transform.rotation.w);
+                if (Physics.Raycast(transform.position + centre, Vector3.down * range, out centreHit))
+                {
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, centreHit.normal);
+                    transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, rot.z, transform.rotation.w);
+                }
             }
+
             foreach (var vert in verts)
             {
                 RaycastHit hit;
@@ -73,8 +78,11 @@ public class Building : MonoBehaviour
             {
                 if (hit.collider)
                 {
-                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.normal);
-                    transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, rot.z, transform.rotation.w);
+                    if (rotate)
+                    {
+                        Quaternion rot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, rot.z, transform.rotation.w);
+                    }
                     transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
                 }
             }

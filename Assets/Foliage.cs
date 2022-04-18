@@ -23,7 +23,7 @@ public class Foliage : MonoBehaviour
 
     void PlaceTrees()
     {
-        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/trees.txt");
+        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/treeposition.txt");
         foreach (var line in lines)
         {
             string[] split = line.Split(',');

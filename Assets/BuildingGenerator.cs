@@ -29,6 +29,7 @@ public class BuildingGenerator : MonoBehaviour
     public Vector2[] uvs;
     public bool useBoundingBoxGeometry;
     public int buildingCount;
+    public bool rotateBuildings;
 
     public enum BuildingType {VERTS, BOUNDING, AREA};
 
@@ -70,10 +71,6 @@ public class BuildingGenerator : MonoBehaviour
             CreateBuilding();
         }
 
-        if(buildingCount >= buildings.Count)
-        {
-            GetComponent<Foliage>().Place();
-        }
     }
 
 
@@ -90,7 +87,8 @@ public class BuildingGenerator : MonoBehaviour
             buildingScript.depth = b.depth;
             buildingScript.area = b.area;
             buildingScript.uvs = b.uvs;
-            if (type == BuildingType.BOUNDING)
+            buildingScript.rotate = rotateBuildings;
+            if (type != BuildingType.AREA)
             {
                 newBuilding.transform.position = new Vector3(b.position.x - (b.width/2), 0, b.position.z - (b.depth/2));
             }
@@ -111,27 +109,32 @@ public class BuildingGenerator : MonoBehaviour
 
         foreach (var file in areaFiles)
         {
-            string[] lines = System.IO.File.ReadAllLines(file);
+            if(index < buildings.Count)
+            {
+                string[] lines = System.IO.File.ReadAllLines(file);
 
-            string fileName = Path.GetFileName(file);
-            string[] nameSplit1 = fileName.Split('.');
-            string[] nameSplit2 = nameSplit1[0].Split('(');
-            string[] nameSplit3 = nameSplit2[1].Split(')');
-            string[] nameSplit4 = nameSplit3[0].Split(',');
+                string fileName = Path.GetFileName(file);
+                string[] nameSplit1 = fileName.Split('.');
+                string[] nameSplit2 = nameSplit1[0].Split('(');
+                string[] nameSplit3 = nameSplit2[1].Split(')');
+                string[] nameSplit4 = nameSplit3[0].Split(',');
 
-            buildings[index].rotation = float.Parse(nameSplit4[2]);
+                buildings[index].rotation = float.Parse(nameSplit4[2]);
 
 
-            Vector3 pos = new Vector3(float.Parse(nameSplit4[0]), 0, float.Parse(nameSplit4[1]));
+                Vector3 pos = new Vector3(float.Parse(nameSplit4[0]), 0, float.Parse(nameSplit4[1]));
 
-            buildings[index].position = pos;
+                buildings[index].position = pos;
 
-            buildings[index].width = float.Parse(lines[0]);
-            buildings[index].depth = float.Parse(lines[1]);
+                buildings[index].width = float.Parse(lines[0]);
+                buildings[index].depth = float.Parse(lines[1]);
 
-            buildings[index].area = buildings[index].width * buildings[index].depth;
+                buildings[index].area = buildings[index].width * buildings[index].depth;
+                index++;
+            }
 
-            index++;
+
+            
         }
     }
 
@@ -277,10 +280,7 @@ public class BuildingGenerator : MonoBehaviour
             triIndex++;
         }
 
-        if(type != BuildingType.VERTS)
-        {
-            BuildingArea();
-        }
+        BuildingArea();
         
 
     }
