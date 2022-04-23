@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+[ExecuteInEditMode]
 public class Foliage : MonoBehaviour
 {
     public GameObject tree;
@@ -23,7 +24,7 @@ public class Foliage : MonoBehaviour
 
     void PlaceTrees()
     {
-        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/treeposition.txt");
+        string[] lines = System.IO.File.ReadAllLines(GetComponent<GetTextFiles>().treePath);
         foreach (var line in lines)
         {
             string[] split = line.Split(',');
@@ -47,7 +48,7 @@ public class Foliage : MonoBehaviour
 
     void PlaceGrass()
     {
-        string[] lines = System.IO.File.ReadAllLines("Assets/Resources/Trees/grassarea.txt");
+        string[] lines = System.IO.File.ReadAllLines(GetComponent<GetTextFiles>().terrainColourGrassPath);
         foreach (var line in lines)
         {
             string[] split = line.Split(',');

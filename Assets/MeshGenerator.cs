@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 
-
+//[ExecuteInEditMode]
 public class MeshGenerator : MonoBehaviour
 {
 
@@ -140,7 +140,7 @@ public class MeshGenerator : MonoBehaviour
             vert++;
         }
 
-        string path = "Assets/Resources/Trees/" + "treearea" + ".txt";
+        string path = GetComponent<GetTextFiles>().terrainColourTreePath;
         string[] lines = System.IO.File.ReadAllLines(path);
         treeVerts = new List<Vector2>();
 
@@ -151,7 +151,7 @@ public class MeshGenerator : MonoBehaviour
         }
 
 
-        string grassPath = "Assets/Resources/Trees/" + "grassarea" + ".txt";
+        string grassPath = GetComponent<GetTextFiles>().terrainColourGrassPath;
         string[] grassLines = System.IO.File.ReadAllLines(grassPath);
         grassVerts = new List<Vector2>();
 
@@ -161,7 +161,7 @@ public class MeshGenerator : MonoBehaviour
             grassVerts.Add(new Vector2(int.Parse(split[0]), int.Parse(split[1])));
         }
 
-        string roadPath = "Assets/Resources/Trees/" + "roadarea" + ".txt";
+        string roadPath = GetComponent<GetTextFiles>().terrainColourRoadsPath;
         string[] roadLines = System.IO.File.ReadAllLines(roadPath);
         roadVerts = new List<Vector2>();
 

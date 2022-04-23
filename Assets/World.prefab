@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8434710869556898031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8434710869556898019}
+  - component: {fileID: 8434710869556898023}
+  - component: {fileID: 8434710869556898028}
+  - component: {fileID: 8434710869556898029}
+  - component: {fileID: 8434710869556898030}
+  - component: {fileID: 8434710869556898018}
+  - component: {fileID: 8434710869556898017}
+  - component: {fileID: 8434710869556898016}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8434710869556898019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8434710869556898023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd42c8db4bda4c47b6bc1d19dbce733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevationPath: Assets/Resources/elevation.txt
+  normalVerts: Assets/Resources/Scene1/Buildings/verts
+  boundingVerts: Assets/Resources/Scene1/Buildings/boundingverts
+  boundingArea: Assets/Resources/Scene1/Buildings/boundingarea
+  normalTris: Assets/Resources/Scene1/Buildings/tris
+  boundingTris: Assets/Resources/Scene1/Buildings/boundingtris
+  terrainColourTreePath: Assets/Resources/Scene1/Trees/treearea.txt
+  terrainColourGrassPath: Assets/Resources/Scene1/Trees/grassarea.txt
+  terrainColourRoadsPath: Assets/Resources/Scene1/Trees/roadarea.txt
+  treePath: Assets/Resources/Scene1/Trees/treeposition.txt
+--- !u!114 &8434710869556898028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a8e7a8c675e99418b582a523b33d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSize: 249
+  zSize: 249
+  forestColor: {r: 0, g: 0, b: 0, a: 0}
+  grassColor: {r: 0.07008722, g: 0.7075472, b: 0.33086637, a: 1}
+  roadColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0}
+  defaultColor: {r: 0.025587391, g: 0.21698111, b: 0.10356263, a: 0}
+  isRoad: 0
+  mat: {fileID: 2100000, guid: d382424e7bcadc54d9399fb4e10fab56, type: 2}
+  testMat: {fileID: 0}
+--- !u!114 &8434710869556898029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea4496da0444ea4d8ff59c625e28961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tree: {fileID: 114418, guid: be878d9ea17907f4a8068678a5ce7908, type: 3}
+  grass: {fileID: 0}
+  treeLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+--- !u!114 &8434710869556898030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8416214ace5c94899610e8fe8d46ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildings: []
+  building: {fileID: 2877535282050213574, guid: fe902c9b0d533014ca1381fed20d8752, type: 3}
+  meshFilter: {fileID: 0}
+  size: {x: 0, y: 0}
+  verts: []
+  tris: 
+  uvs: []
+  useBoundingBoxGeometry: 0
+  buildingCount: 0
+  rotateBuildings: 1
+  type: 0
+  brickHouse: {fileID: 8376307365458620307, guid: 2f2289d7bd9be2b4f9662c265635038b, type: 3}
+  brickHouseMedium: {fileID: 4809097532009862511, guid: d2e361e7e983967409a2a7b056eccd12, type: 3}
+  largeApartment: {fileID: 8114049317584949283, guid: f56b9ed3d4e5cd14ea340db45b854bd8, type: 3}
+  storageBuilding: {fileID: 3325388903833118919, guid: 0b45cbeab6c248447818e8bfd4f97988, type: 3}
+  hut: {fileID: 3577586974356559493, guid: 31d3fecc61d3e7443bc0deeead445210, type: 3}
+  useImageDimensions: 0
+--- !u!33 &8434710869556898018
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Mesh: {fileID: 0}
+--- !u!23 &8434710869556898017
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8434710869556898016
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434710869556898031}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

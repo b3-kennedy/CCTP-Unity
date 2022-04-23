@@ -42,7 +42,8 @@ public class BuildingGenerator : MonoBehaviour
     public GameObject hut;
     public bool useImageDimensions;
 
-    string directory;
+    string directoryVerts;
+    string directoryTris;
 
 
     private void Start()
@@ -105,7 +106,7 @@ public class BuildingGenerator : MonoBehaviour
     {
         int index = 0;
 
-        string[] areaFiles = Directory.GetFiles("Assets/Resources/Buildings/boundingarea", "*.txt");
+        string[] areaFiles = Directory.GetFiles(GetComponent<GetTextFiles>().boundingArea, "*.txt");
 
         foreach (var file in areaFiles)
         {
@@ -140,7 +141,7 @@ public class BuildingGenerator : MonoBehaviour
 
     void AreaBuildings()
     {
-        string[] areaFiles = Directory.GetFiles("Assets/Resources/Buildings/boundingarea", "*.txt");
+        string[] areaFiles = Directory.GetFiles(GetComponent<GetTextFiles>().boundingArea, "*.txt");
 
         for (int i = 0; i < areaFiles.Length; i++)
         {
@@ -213,12 +214,14 @@ public class BuildingGenerator : MonoBehaviour
 
         if (type == BuildingType.BOUNDING)
         {
-            directory = "bounding";
+            directoryVerts = GetComponent<GetTextFiles>().boundingVerts;
+            directoryTris = GetComponent<GetTextFiles>().boundingTris;
             
         }
         else if(type == BuildingType.VERTS)
         {
-            directory = "";
+            directoryVerts = GetComponent<GetTextFiles>().normalVerts;
+            directoryTris = GetComponent<GetTextFiles>().normalTris;
         }
         else if(type == BuildingType.AREA)
         {
@@ -228,8 +231,8 @@ public class BuildingGenerator : MonoBehaviour
 
 
         
-        string[] vertFiles = Directory.GetFiles("Assets/Resources/Buildings/"+directory+"verts","*.txt");
-        string[] triFiles = Directory.GetFiles("Assets/Resources/Buildings/"+directory+"tris", "*.txt");
+        string[] vertFiles = Directory.GetFiles(directoryVerts,"*.txt");
+        string[] triFiles = Directory.GetFiles(directoryTris, "*.txt");
 
         
 
