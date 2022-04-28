@@ -24,7 +24,6 @@ public class Building : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("building");
         if(verts.Count > 0)
         {
             meshCol = GetComponent<MeshCollider>();

@@ -19,28 +19,32 @@ public class BuildingData
 
 public class BuildingGenerator : MonoBehaviour
 {
-    public List<BuildingData> buildings;
-    public GameObject building;
-    
-    public MeshFilter meshFilter;
-    public Vector2Int size;
-    public List<Vector3> verts;
-    public List<int> tris;
-    public Vector2[] uvs;
-    public bool useBoundingBoxGeometry;
-    public int buildingCount;
-    public bool rotateBuildings;
-
-    public enum BuildingType {VERTS, BOUNDING, AREA};
-
+    [Header("Building Type")] 
     public BuildingType type;
+    public enum BuildingType { VERTS, BOUNDING, AREA };
 
+
+    public GameObject building;
+
+    
+
+    [HideInInspector] public List<BuildingData> buildings;
+    private List<Vector3> verts;
+    private List<int> tris;
+    private Vector2[] uvs;
+    [HideInInspector] public int buildingCount;
+    
+
+
+    [Header("Prefabs")]
     public GameObject brickHouse;
     public GameObject brickHouseMedium;
     public GameObject largeApartment;
     public GameObject storageBuilding;
     public GameObject hut;
+    [Header("Prefab Options")]
     public bool useImageDimensions;
+    public bool rotateBuildings;
 
     string directoryVerts;
     string directoryTris;
@@ -153,17 +157,8 @@ public class BuildingGenerator : MonoBehaviour
 
         foreach (var building in buildings)
         {
-            if(building.area < 200)
-            {
-                GameObject house = Instantiate(hut, building.position, Quaternion.identity);
 
-                if (useImageDimensions)
-                {
-                    house.transform.localScale = new Vector3(building.width / 10, building.width / 10, building.depth / 5);
-                }
-                house.transform.eulerAngles = new Vector3(transform.eulerAngles.x, building.rotation, transform.eulerAngles.z);
-            }
-            else if(building.area <= 1000 && building.area >= 500)
+            if(building.area <= 1000 && building.area >= 500)
             {
                 GameObject house = Instantiate(brickHouse, building.position, Quaternion.identity);
 
@@ -288,53 +283,6 @@ public class BuildingGenerator : MonoBehaviour
 
     }
 
-    void GetTris()
-    {
-        string path = "Assets/Resources/" + "tris" + ".txt";
-        string[] lines = System.IO.File.ReadAllLines(path);
-        foreach (var line in lines)
-        {
-            if (!string.IsNullOrEmpty(line))
-            {
-                tris.Add(int.Parse(line));
-            }
-        }
-    }
 
-    void GetVerts()
-    {
-        string path = "Assets/Resources/" + "verts" + ".txt";
-        string[] lines = System.IO.File.ReadAllLines(path);
-        foreach (var line in lines)
-        {
-            string[] split = line.Split(',');
-            Vector3 vert = new Vector3(float.Parse(split[0]), float.Parse(split[1]), float.Parse(split[2]));
-            verts.Add(vert);
-        }
-    }
-
-    void SetUVs()
-    {
-        for (int i = 0; i < uvs.Length; i++)
-        {
-            uvs[i] = new Vector2(verts[i].x, verts[i].z);
-        }
-    }
-
-    //private void Update()
-    //{
-    //    Generate();
-    //}
-
-    public void Generate()
-    {
-        Mesh mesh = new Mesh();
-        mesh.vertices = verts.ToArray();
-        mesh.triangles = tris.ToArray();
-        mesh.uv = uvs;
-
-        mesh.RecalculateNormals();
-        meshFilter.sharedMesh = mesh;
-    }
 
 }

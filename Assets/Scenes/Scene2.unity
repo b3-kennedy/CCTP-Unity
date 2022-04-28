@@ -176,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898023, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: treePath
-      value: Assets/Resources/Scene2/Trees/treeposition.txt
+      value: Assets/Resources/Scene2/Other/treeposition.txt
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898023, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: normalTris
@@ -200,15 +200,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898023, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: terrainColourTreePath
-      value: Assets/Resources/Scene2/Trees/treearea.txt
+      value: Assets/Resources/Scene2/Other/treearea.txt
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898023, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: terrainColourGrassPath
-      value: Assets/Resources/Scene2/Trees/grassarea.txt
+      value: Assets/Resources/Scene2/Other/grassarea.txt
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898023, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: terrainColourRoadsPath
-      value: Assets/Resources/Scene2/Trees/roadarea.txt
+      value: Assets/Resources/Scene2/Other/roadarea.txt
       objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898028, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: forestColor.b

@@ -18,7 +18,6 @@ public class Foliage : MonoBehaviour
 
     public void Place()
     {
-        Debug.Log("trees");
         PlaceTrees();
     }
 
@@ -32,7 +31,6 @@ public class Foliage : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(new Vector3(treePos.x, 100, treePos.z), Vector3.down, out hit, Mathf.Infinity, treeLayerMask))
             {
-                Debug.Log(hit.collider);
                 if (hit.collider.tag != "Building")
                 {
                     GameObject newTree = Instantiate(tree, new Vector3(treePos.x, hit.point.y, treePos.z), Quaternion.identity);

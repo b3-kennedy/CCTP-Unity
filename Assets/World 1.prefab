@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1260773629239595431}
-  - component: {fileID: 1260773629239595427}
+  - component: {fileID: 1260773629239595434}
   - component: {fileID: 1260773629239595432}
   - component: {fileID: 1260773629239595433}
-  - component: {fileID: 1260773629239595434}
   - component: {fileID: 1260773629239595430}
   - component: {fileID: 1260773629239595429}
+  - component: {fileID: 1260773629239595427}
   - component: {fileID: 1260773629239595428}
   m_Layer: 0
   m_Name: World 1
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1260773629239595427
+--- !u!114 &1260773629239595434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,19 +46,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1260773629239595435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd42c8db4bda4c47b6bc1d19dbce733, type: 3}
+  m_Script: {fileID: 11500000, guid: ac8416214ace5c94899610e8fe8d46ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevationPath: Assets/Resources/elevation.txt
-  normalVerts: Assets/Resources/Scene3/Buildings/verts
-  boundingVerts: Assets/Resources/Scene3/Buildings/boundingverts
-  boundingArea: Assets/Resources/Scene3/Buildings/boundingarea
-  normalTris: Assets/Resources/Scene3/Buildings/tris
-  boundingTris: Assets/Resources/Scene3/Buildings/boundingtris
-  terrainColourTreePath: Assets/Resources/Scene3/Trees/treearea.txt
-  terrainColourGrassPath: Assets/Resources/Scene3/Trees/grassarea.txt
-  terrainColourRoadsPath: Assets/Resources/Scene3/Trees/roadarea.txt
-  treePath: Assets/Resources/Scene3/Trees/treeposition.txt
+  buildings: []
+  building: {fileID: 2877535282050213574, guid: fe902c9b0d533014ca1381fed20d8752, type: 3}
+  meshFilter: {fileID: 0}
+  size: {x: 0, y: 0}
+  verts: []
+  tris: 
+  uvs: []
+  useBoundingBoxGeometry: 0
+  buildingCount: 0
+  rotateBuildings: 1
+  type: 0
+  brickHouse: {fileID: 8376307365458620307, guid: 2f2289d7bd9be2b4f9662c265635038b, type: 3}
+  brickHouseMedium: {fileID: 4809097532009862511, guid: d2e361e7e983967409a2a7b056eccd12, type: 3}
+  largeApartment: {fileID: 8114049317584949283, guid: f56b9ed3d4e5cd14ea340db45b854bd8, type: 3}
+  storageBuilding: {fileID: 3325388903833118919, guid: 0b45cbeab6c248447818e8bfd4f97988, type: 3}
+  hut: {fileID: 3577586974356559493, guid: 31d3fecc61d3e7443bc0deeead445210, type: 3}
+  useImageDimensions: 0
 --- !u!114 &1260773629239595432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,35 +104,6 @@ MonoBehaviour:
   treeLayerMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &1260773629239595434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260773629239595435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac8416214ace5c94899610e8fe8d46ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildings: []
-  building: {fileID: 2877535282050213574, guid: fe902c9b0d533014ca1381fed20d8752, type: 3}
-  meshFilter: {fileID: 0}
-  size: {x: 0, y: 0}
-  verts: []
-  tris: 
-  uvs: []
-  useBoundingBoxGeometry: 0
-  buildingCount: 0
-  rotateBuildings: 1
-  type: 0
-  brickHouse: {fileID: 8376307365458620307, guid: 2f2289d7bd9be2b4f9662c265635038b, type: 3}
-  brickHouseMedium: {fileID: 4809097532009862511, guid: d2e361e7e983967409a2a7b056eccd12, type: 3}
-  largeApartment: {fileID: 8114049317584949283, guid: f56b9ed3d4e5cd14ea340db45b854bd8, type: 3}
-  storageBuilding: {fileID: 3325388903833118919, guid: 0b45cbeab6c248447818e8bfd4f97988, type: 3}
-  hut: {fileID: 3577586974356559493, guid: 31d3fecc61d3e7443bc0deeead445210, type: 3}
-  useImageDimensions: 0
 --- !u!33 &1260773629239595430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -175,6 +153,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1260773629239595427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260773629239595435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd42c8db4bda4c47b6bc1d19dbce733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elevationPath: Assets/Resources/elevation.txt
+  normalVerts: Assets/Resources/Scene3/Buildings/verts
+  boundingVerts: Assets/Resources/Scene3/Buildings/boundingverts
+  boundingArea: Assets/Resources/Scene3/Buildings/boundingarea
+  normalTris: Assets/Resources/Scene3/Buildings/tris
+  boundingTris: Assets/Resources/Scene3/Buildings/boundingtris
+  terrainColourTreePath: Assets/Resources/Scene3/Trees/treearea.txt
+  terrainColourGrassPath: Assets/Resources/Scene3/Trees/grassarea.txt
+  terrainColourRoadsPath: Assets/Resources/Scene3/Trees/roadarea.txt
+  treePath: Assets/Resources/Scene3/Trees/treeposition.txt
 --- !u!64 &1260773629239595428
 MeshCollider:
   m_ObjectHideFlags: 0

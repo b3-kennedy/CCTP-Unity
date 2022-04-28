@@ -102,7 +102,6 @@ public class MeshGenerator : MonoBehaviour
             for (int x = 0; x <= xSize; x++)
             {
                 float y = float.Parse(elevationLines[i]);
-                Debug.Log(i);
                 //print("normal: " + y + " | " + "abnormal: " + testy);
 
                 
