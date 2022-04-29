@@ -67,7 +67,6 @@ public class BuildingGenerator : MonoBehaviour
 
     public void StartBuildingCreation()
     {
-        Debug.Log("building data");
         GetBuildingData();
 
 
@@ -124,7 +123,7 @@ public class BuildingGenerator : MonoBehaviour
                 string[] nameSplit3 = nameSplit2[1].Split(')');
                 string[] nameSplit4 = nameSplit3[0].Split(',');
 
-                buildings[index].rotation = float.Parse(nameSplit4[2]);
+                buildings[index].rotation = -float.Parse(nameSplit4[2]);
 
 
                 Vector3 pos = new Vector3(float.Parse(nameSplit4[0]), 0, float.Parse(nameSplit4[1]));

@@ -51,7 +51,6 @@ public class MeshGenerator : MonoBehaviour
     void Start()
     {
         world = gameObject;
-        Debug.Log("terrain");
         mesh = new Mesh();
         meshCol = GetComponent<MeshCollider>();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -220,7 +219,6 @@ public class MeshGenerator : MonoBehaviour
     {
         mesh.Clear();
         mesh.vertices = vertices;
-        Debug.Log(mesh.vertices.Length);
         mesh.triangles = triangles;
         meshCol.sharedMesh = mesh;
         mesh.uv = uvs;
