@@ -457,6 +457,18 @@ PrefabInstance:
       propertyPath: terrainColourRoadsPath
       value: Assets/Resources/Scene1/Other/roadarea.txt
       objectReference: {fileID: 0}
+    - target: {fileID: 8434710869556898028, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
+      propertyPath: forestColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434710869556898028, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
+      propertyPath: forestColor.g
+      value: 0.27900028
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434710869556898028, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
+      propertyPath: forestColor.r
+      value: 0.46226418
+      objectReference: {fileID: 0}
     - target: {fileID: 8434710869556898030, guid: 5919f8e3d7b71ad44a5c835f693c026c, type: 3}
       propertyPath: type
       value: 1
