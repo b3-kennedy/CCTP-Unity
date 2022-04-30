@@ -1,6 +1,8 @@
 This repository contains the code to create the 3D environments from a satellite image. Inside the scenes folder you will find 3 example scenes and the corresponding satellite image used to create this scene. Scene 2 demonstrates the ability to create landscapes by drawing your own. 
 
-To see the scenes press the play button within Unity.
+Unity version: 2020.3.26f1
+
+To see the scenes load one of the scenes from the 'Scene' folder within unity and press the play button.
 
 If you wish to change the mode of the buildings: 
 1. Locate the Building Generator script on the 'World' asset within the scene
